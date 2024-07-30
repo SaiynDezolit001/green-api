@@ -60,16 +60,12 @@
                 <button onclick="getStateInstance()">getStateInstance</button>
             </div>
             <div class="input-group">
-                <label for="chatId">Введите chatId</label>
                 <input type="text" id="chatId" placeholder="Введите chatId">
-                <label for="message">Введите сообщение</label>
                 <input type="text" id="message" placeholder="Введите сообщение">
                 <button onclick="sendMessage()">sendMessage</button>
             </div>
             <div class="input-group">
-                <label for="fileChatId">Введите chatId</label>
                 <input type="text" id="fileChatId" placeholder="Введите chatId">
-                <label for="fileUrl">Введите URL файла</label>
                 <input type="text" id="fileUrl" placeholder="Введите URL файла">
                 <button onclick="sendFileByUrl()">sendFileByUrl</button>
             </div>
@@ -83,7 +79,8 @@
         async function apiCall(method, params = {}, isGet = false) {
             const idInstance = document.getElementById('idInstance').value;
             const apiTokenInstance = document.getElementById('apiTokenInstance').value;
-            const url = `https://api.green-api.com/waInstance${idInstance}/${method}/${apiTokenInstance}`;
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+            const url = `${proxyUrl}https://api.green-api.com/waInstance${idInstance}/${method}/${apiTokenInstance}`;
 
             try {
                 const response = await fetch(url, {
