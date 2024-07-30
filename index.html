@@ -13,29 +13,25 @@
             max-width: 600px;
             margin: 0 auto;
             display: flex;
+            flex-direction: column;
         }
-        .inputs {
-            flex: 1;
-            padding: 20px;
-        }
-        .inputs .input-group {
+        .input-group {
             margin-bottom: 10px;
         }
-        .inputs .input-group label {
+        .input-group label {
             display: block;
             margin-bottom: 5px;
         }
-        .inputs .input-group input,
-        .inputs .input-group button {
+        .input-group input,
+        .input-group button {
             width: 100%;
             padding: 8px;
             box-sizing: border-box;
             margin-bottom: 5px;
         }
         .response {
-            flex: 1;
             padding: 20px;
-            border-left: 1px solid #ccc;
+            border-top: 1px solid #ccc;
             background-color: #f9f9f9;
         }
         .response pre {
@@ -46,29 +42,24 @@
 </head>
 <body>
     <div class="container">
-        <div class="inputs">
-            <div class="input-group">
-                <label for="idInstance">idInstance</label>
-                <input type="text" id="idInstance" value="7103962451">
-            </div>
-            <div class="input-group">
-                <label for="apiTokenInstance">ApiTokenInstance</label>
-                <input type="text" id="apiTokenInstance" value="0ec5b2111b3249d7829f65393a507cdaa6c97bad702a4c40ad">
-            </div>
-            <div class="input-group">
-                <button onclick="getSettings()">getSettings</button>
-                <button onclick="getStateInstance()">getStateInstance</button>
-            </div>
-            <div class="input-group">
-                <input type="text" id="chatId" placeholder="Введите chatId">
-                <input type="text" id="message" placeholder="Введите сообщение">
-                <button onclick="sendMessage()">sendMessage</button>
-            </div>
-            <div class="input-group">
-                <input type="text" id="fileChatId" placeholder="Введите chatId">
-                <input type="text" id="fileUrl" placeholder="Введите URL файла">
-                <button onclick="sendFileByUrl()">sendFileByUrl</button>
-            </div>
+        <div class="input-group">
+            <label for="idInstance">idInstance</label>
+            <input type="text" id="idInstance">
+        </div>
+        <div class="input-group">
+            <label for="apiTokenInstance">ApiTokenInstance</label>
+            <input type="text" id="apiTokenInstance">
+        </div>
+        <div class="input-group">
+            <label for="chatId">Введите chatId</label>
+            <input type="text" id="chatId" placeholder="Введите chatId">
+        </div>
+        <div class="input-group">
+            <label for="message">Введите сообщение</label>
+            <input type="text" id="message" placeholder="Введите сообщение">
+        </div>
+        <div class="input-group">
+            <button onclick="sendMessage()">sendMessage</button>
         </div>
         <div class="response">
             <h3>Ответ:</h3>
@@ -79,8 +70,7 @@
         async function apiCall(method, params = {}, isGet = false) {
             const idInstance = document.getElementById('idInstance').value;
             const apiTokenInstance = document.getElementById('apiTokenInstance').value;
-            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-            const url = `${proxyUrl}https://api.green-api.com/waInstance${idInstance}/${method}/${apiTokenInstance}`;
+            const url = `https://api.green-api.com/waInstance${idInstance}/${method}/${apiTokenInstance}`;
 
             try {
                 const response = await fetch(url, {
@@ -97,29 +87,12 @@
             }
         }
 
-        function getSettings() {
-            apiCall('getSettings');
-        }
-
-        function getStateInstance() {
-            apiCall('getStateInstance', {}, true);
-        }
-
         function sendMessage() {
             const params = {
                 chatId: document.getElementById('chatId').value,
                 message: document.getElementById('message').value
             };
             apiCall('sendMessage', params);
-        }
-
-        function sendFileByUrl() {
-            const params = {
-                chatId: document.getElementById('fileChatId').value,
-                urlFile: document.getElementById('fileUrl').value,
-                caption: 'Here is your file'
-            };
-            apiCall('sendFileByUrl', params);
         }
     </script>
 </body>
