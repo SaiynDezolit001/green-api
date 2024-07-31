@@ -71,6 +71,8 @@
                 <input type="text" id="fileChatId" placeholder="Введите chatId">
                 <label for="fileUrl">Введите URL файла</label>
                 <input type="text" id="fileUrl" placeholder="Введите URL файла">
+                <label for="fileName">Введите имя файла</label>
+                <input type="text" id="fileName" placeholder="Введите имя файла">
                 <button onclick="sendFileByUrl()">sendFileByUrl</button>
             </div>
         </div>
@@ -120,6 +122,7 @@
             const params = {
                 chatId: document.getElementById('fileChatId').value,
                 urlFile: document.getElementById('fileUrl').value,
+                fileName: document.getElementById('fileName').value,
                 caption: 'Here is your file'
             };
             apiCall('sendFileByUrl', params);
